@@ -1,12 +1,11 @@
 from crewai import Agent, Task, Crew, Process
-from tools.coin_gecko_data_tool import CoinGeckoDataTool
+from tools.coin_gecko_data_tool import CoinGeckoDataTool  # Remove this import if not used
 from tools.price_comparison_tool import PriceComparisonTool
 from tools.transaction_execution_tool import TransactionExecutionTool
 from tools.wallet_management_tool import WalletManagementTool
 from tools.gas_price_tool import GasPriceTool
 
 # Initialize tools
-coin_gecko_data_tool = CoinGeckoDataTool()
 price_comparison_tool = PriceComparisonTool()
 transaction_execution_tool = TransactionExecutionTool()
 wallet_management_tool = WalletManagementTool()
@@ -22,7 +21,7 @@ arbitrage_agent = Agent(
         "With a keen eye for financial markets and deep understanding of blockchain technology, "
         "you seek out the best arbitrage opportunities to maximize profits."
     ),
-    tools=[coin_gecko_data_tool, price_comparison_tool, gas_price_tool],
+    tools=[price_comparison_tool, gas_price_tool],
     allow_delegation=True
 )
 
@@ -46,7 +45,7 @@ arbitrage_task = Task(
         "Focus on the most liquid markets and ensure the opportunities are profitable after accounting for transaction fees."
     ),
     expected_output='A list of profitable arbitrage opportunities with potential profit margins and required actions.',
-    tools=[coin_gecko_data_tool, price_comparison_tool, gas_price_tool],
+    tools=[price_comparison_tool, gas_price_tool],
     agent=arbitrage_agent,
 )
 
